@@ -13,17 +13,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Route for css page
-app.use(express.static("public"));
+app.use(express.static("Develop/public/assets/css"));
+
+// Route for index page
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
+});
 
 // Route for notes page
 app.get("/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "notes.html"));
+    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
 });
 
-// Route for index page
-app.get("/*", function(req, res) {
-    res.sendFile(path.join(__dirname, "notes.html"));
-});
+
 
 
 
