@@ -2,9 +2,14 @@
   "name": "express--note-taker",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/barbara095/Express--Note-Taker/issues"
   },
-  "homepage": "https://github.com/barbara095/Express--Note-Taker#readme",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+  "homepage": "https://github.com/barbara095/Express--Note-Taker#readme"
 }
