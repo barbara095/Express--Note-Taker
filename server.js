@@ -36,9 +36,9 @@ app.get("/notes", function(req, res) {
 app.get("/api/notes", function(req, res) {
     fs.readFile(path.join(__dirname, noteData), function(err,data) {
         if (err) throw err;
-        const notes = JSON.parse(data);
-        console.log(notes);
-        res.json(notes);
+        const savedNotes = JSON.parse(data);
+        console.log(savedNotes);
+        res.json(savedNotes);
     });
 });
 
@@ -49,6 +49,18 @@ app.post("/api/notes", function(req, res) {
 
     noteData.push(newNotes);
     res.json(newNotes);
+    
+
+});
+
+// Route for deleting notes 
+app.delete("/api/notes/:id", function(req, res) {
+    fs.readFile(path.join(__dirname, noteData), function(err,data) {
+        if (err) throw err;
+        const savedNotes = JSON.parse(data);
+        console.log(savedNotes);
+        res.json(savedNotes);
+    });
 
 });
 
