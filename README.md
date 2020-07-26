@@ -4,7 +4,7 @@
 This application uses an Express backend to write, save and delete notes from a JSON file. The application has a db.json file that is used to store and retrieve notes achieved by using API routes on a server.js file.  
 
 ## Usage
-The purpose of this app is to simplify note taking for users who need to keep track of a lot of information. So taking persistent notes allows users to have written information readily available. 
+The purpose of this app is to simplify note taking for users who need to keep track of a lot of information.
 
 ## User Story
 AS A user, I WANT to be able to write and save notes
