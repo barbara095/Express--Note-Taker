@@ -17,8 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Route for css page
-
-app.use(express.static("Develop/public/assets/css"));
+app.use(express.static("Develop/public"));
 
 // HTML ROUTES//
 // Route for index page
@@ -32,7 +31,7 @@ app.get("/notes", function(req, res) {
 });
 
 // API ROUTES//
-// Route for getting note data
+// GET route for getting note data
 app.get("/api/notes", function(req, res) {
     fs.readFile(path.join(__dirname, noteData), function(err,data) {
         if (err) throw err;
@@ -40,7 +39,7 @@ app.get("/api/notes", function(req, res) {
     });
 });
 
-// Route for adding new notes via JSON, and displaying it
+// POST route for adding new notes via JSON, and displaying it
 app.post("/api/notes", function(req, res) {
     const newNotes = req.body;
     console.log(newNotes);
@@ -56,12 +55,7 @@ app.post("/api/notes", function(req, res) {
             if (err) throw err;
             res.send("Success!");
         });
-        
     });
-
-
-    
-
 });
 
 // Route for deleting notes 
