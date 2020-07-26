@@ -36,19 +36,30 @@ app.get("/notes", function(req, res) {
 app.get("/api/notes", function(req, res) {
     fs.readFile(path.join(__dirname, noteData), function(err,data) {
         if (err) throw err;
-        const savedNotes = JSON.parse(data);
-        console.log(savedNotes);
-        res.json(savedNotes);
+        res.json(JSON.parse(data));
     });
 });
 
-// Route for adding new note via JSON, and displaying it
+// Route for adding new notes via JSON, and displaying it
 app.post("/api/notes", function(req, res) {
     const newNotes = req.body;
     console.log(newNotes);
-
     noteData.push(newNotes);
-    res.json(newNotes);
+
+    fs.readFile(path.join(__dirname, noteData), function(err,data) {
+        if (err) throw err;
+        const notes = JSON.parse(data);
+
+        newNotes.id = notes.length + 1;
+    
+        fs.writeFile(path.join(__dirname, noteData, JSON.stringify(notes)), function(err) {
+            if (err) throw err;
+            res.send("Success!");
+        });
+        
+    });
+
+
     
 
 });
