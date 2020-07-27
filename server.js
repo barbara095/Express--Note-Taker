@@ -5,7 +5,7 @@ const express = require("express");
 const path = require("path");
 const noteData = require("./Develop/db/db.json")
 
-
+const notes = [];
 // Sets up the Express App
 
 const app = express();
@@ -33,7 +33,7 @@ app.get("/notes", function(req, res) {
 // API ROUTES//
 // GET route for getting note data
 app.get("/api/notes", function(req, res) {
-    fs.readFile(path.join(__dirname, noteData));
+    fs.readFile(path.join(__dirname, "./Develop/db/db.json"));
 });
 
 // POST route for adding new notes via JSON, and displaying it
@@ -46,7 +46,7 @@ app.post("/api/notes", function(req, res) {
     console.log(newNotes);
     noteData.push(newNotes);
 
-    fs.writeFile(path.join(__dirname, noteData, JSON.stringify(notes)), function(err) {
+    fs.writeFile(path.join(__dirname, "./Develop/db/db.json", JSON.stringify(notes)), function(err) {
         if (err) throw err;
         return res.json(notes)
     });
@@ -54,7 +54,7 @@ app.post("/api/notes", function(req, res) {
 
 // Route for deleting notes 
 app.delete("/api/notes/:id", function(req, res) {
-    fs.readFile(path.join(__dirname, noteData), function(err,data) {
+    fs.readFile(path.join(__dirname, "./Develop/db/db.json"), function(err,data) {
         if (err) throw err;
         const savedNotes = JSON.parse(data);
         console.log(savedNotes);
