@@ -33,28 +33,22 @@ app.get("/notes", function(req, res) {
 // API ROUTES//
 // GET route for getting note data
 app.get("/api/notes", function(req, res) {
-    fs.readFile(path.join(__dirname, noteData), function(err,data) {
-        if (err) throw err;
-        res.json(JSON.parse(data));
-    });
+    fs.readFile(path.join(__dirname, noteData));
 });
 
 // POST route for adding new notes via JSON, and displaying it
 app.post("/api/notes", function(req, res) {
-    const newNotes = req.body;
+    const newNotes = {
+        id: noteData.length + 1,
+        title: noteData.title,
+        text: noteData.text
+    }
     console.log(newNotes);
     noteData.push(newNotes);
 
-    fs.readFile(path.join(__dirname, noteData), function(err,data) {
+    fs.writeFile(path.join(__dirname, noteData, JSON.stringify(notes)), function(err) {
         if (err) throw err;
-        const notes = JSON.parse(data);
-
-        newNotes.id = notes.length + 1;
-    
-        fs.writeFile(path.join(__dirname, noteData, JSON.stringify(notes)), function(err) {
-            if (err) throw err;
-            res.send("Success!");
-        });
+        return res.json(notes)
     });
 });
 
