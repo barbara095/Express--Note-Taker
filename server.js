@@ -68,12 +68,12 @@ app.delete("/api/notes/:id", function (req, res) {
     fs.readFile("./Develop/db/db.json", "utf8", function (err, data) {
         if (err) throw err;
         const savedNotes = JSON.parse(data);
-        notes.splice(deleteID, 1);
+        savedNotes.splice(deleteID - 1 , 1);
        
-        fs.writeFile("./Develop/db/db.json", JSON.stringify(notes), 
+        fs.writeFile("./Develop/db/db.json", JSON.stringify(savedNotes), 
         function(err, data) {
             console.log("Notes deleted");
-            res.json(req.body);
+            res.json(savedNotes);
         })
     });
 
