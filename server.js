@@ -65,11 +65,16 @@ app.post("/api/notes", function (req, res) {
     // Route for deleting notes 
 app.delete("/api/notes/:id", function (req, res) {
     const deleteID = req.params.id;
-    fs.readFile("./Develop/db/db.json", "utf8", function(err, data) {
+    fs.readFile("./Develop/db/db.json", "utf8", function (err, data) {
         if (err) throw err;
-        const deleteNotes = JSON.parse(data);
-        res.json(deleteNotes.splice(deleteID - 1, 1));
-        fs.writeFile("./Develop/db/db.json", JSON.stringify())
+        const savedNotes = JSON.parse(data);
+        res.json(savedNotes);
+
+        fs.writeFile("./Develop/db/db.json", JSON.stringify(savedNotes), 
+        function(err, data) {
+            console.log("Notes deleted");
+            res.json(savedNotes);
+        })
     });
 
 });
