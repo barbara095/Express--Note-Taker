@@ -19,5 +19,8 @@ Application should allow users to create and save notes.
 Application should allow users to view previously saved notes.
 Application should allow users to delete previously saved notes. 
 
+## Images of application
+![Image 1](Develop/public/assets/images/app1.png)
 
+![Image 2](Develop/public/assets/images/app2.png)
 
