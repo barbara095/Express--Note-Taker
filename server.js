@@ -2,7 +2,7 @@
 const fs = require("fs");
 const express = require("express");
 const path = require("path");
-const noteData = require("./Develop/db/db.json")
+const noteData = require("./db/db.json")
 
 // Sets up the Express App
 
@@ -15,25 +15,25 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Route for css page
-app.use(express.static("Develop/public"));
+app.use(express.static("public"));
 
 // HTML ROUTES//
 // Route for index page
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "./Develop/public/index.html"));
-    console.log(path.join(__dirname, "./Develop/public/index.html"));
+    res.sendFile(path.join(__dirname, "./public/index.html"));
+    console.log(path.join(__dirname, "./public/index.html"));
 });
 
 // Route for notes page
 app.get("/notes", function (req, res) {
-    res.sendFile(path.join(__dirname, "./Develop/public/notes.html"));
-    console.log(path.join(__dirname, "./Develop/public/notes.html"));
+    res.sendFile(path.join(__dirname, "./public/notes.html"));
+    console.log(path.join(__dirname, "./public/notes.html"));
 });
 
 // API ROUTES//
 // GET route for getting note data
 app.get("/api/notes", function (req, res) {
-    fs.readFile("./Develop/db/db.json", "utf8", function(err,response) {
+    fs.readFile("./db/db.json", "utf8", function(err,response) {
         if (err) throw err;
         res.json(JSON.parse(response));
     });
@@ -42,7 +42,7 @@ app.get("/api/notes", function (req, res) {
 // POST route for adding new notes via JSON, and displaying it
 app.post("/api/notes", function (req, res) {
     const noteReq = req.body;
-    fs.readFile("./Develop/db/db.json", "utf8", function (err, response) {
+    fs.readFile("./db/db.json", "utf8", function (err, response) {
         if (err) {
             console.log(err);
         }
@@ -56,7 +56,7 @@ app.post("/api/notes", function (req, res) {
         console.log(newNotes);
         notes.push(newNotes);
 
-        fs.writeFile("./Develop/db/db.json", JSON.stringify(notes), function (err) {
+        fs.writeFile("./db/db.json", JSON.stringify(notes), function (err) {
             if (err) throw err;
             return res.json(notes);
         });
@@ -65,12 +65,12 @@ app.post("/api/notes", function (req, res) {
     // Route for deleting notes 
 app.delete("/api/notes/:id", function (req, res) {
     const deleteID = req.params.id;
-    fs.readFile("./Develop/db/db.json", "utf8", function (err, data) {
+    fs.readFile("./db/db.json", "utf8", function (err, data) {
         if (err) throw err;
         const savedNotes = JSON.parse(data);
         savedNotes.splice(deleteID - 1 , 1);
        
-        fs.writeFile("./Develop/db/db.json", JSON.stringify(savedNotes), 
+        fs.writeFile("./db/db.json", JSON.stringify(savedNotes), 
         function(err, data) {
             console.log("Notes deleted");
             res.json(savedNotes);
